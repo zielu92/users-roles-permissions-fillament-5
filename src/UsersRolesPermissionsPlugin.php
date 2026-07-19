@@ -62,11 +62,7 @@ class UsersRolesPermissionsPlugin implements Plugin
                 HaveAccess::class,
                 IsActive::class,
                 IsOnline::class,
-            ])->middleware(
-                [
-                    GzipEncodeResponse::class,
-                ]
-            );
+            ]);
     }
 
     public function boot(Panel $panel): void

@@ -22,8 +22,12 @@ class IsOnline
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            $expireAt = now()->addMinutes(2);
-            Cache::put('user-is-online.'.Auth()->id(), true, $expireAt);
+            $userId = Auth::id();
+            $cacheKey = 'user-is-online.' . $userId;
+            if (!Cache::has($cacheKey)) {
+                $expireAt = now()->addMinutes(2);
+                Cache::put($cacheKey, true, $expireAt);
+            }
             $user = Auth::user();
             $user->stopUserstamping();
             $user->last_seen = now();

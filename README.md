@@ -1,4 +1,6 @@
 
+This is a fork of [users-roles-permissions](https://github.com/CWSPS154/users-roles-permissions), updated to support version 5.x.
+
 # Filament Users Roles Permissions
 
 ![Logo](screenshorts/code-with-sps-154-users-roles-permissions.jpg)
@@ -8,8 +10,8 @@ Filament User & Roles & Permissions for Filament v4.
 ## Requirements
 
 - PHP 8.2+
-- Laravel 10.0+
-- Filament 4.0+
+- Laravel 11.0+
+- Filament 5.0+
 
 ## Installation
 
@@ -25,7 +27,6 @@ Add this into your Filament `PannelProvider` class `panel()`
 use CWSPS154\UsersRolesPermissions\UsersRolesPermissionsPlugin;
 
 $panel->databaseNotifications() //need to see the export files for the permission
-    ->databaseTransactions() //optional
     ->plugins([UsersRolesPermissionsPlugin::make()]); //required to enable this extension
 ```
 You can also update UserResource using `setUserResource(UserResource::class)` in the plugin
@@ -94,10 +95,6 @@ Run
 # for laravel 11
 php artisan make:queue-batches-table
 php artisan make:notifications-table //ensure these queues and notifications migrates are published
-# for laravel 10
-php artisan queue:batches-table
-php artisan notifications:table
-# for both
 php artisan vendor:publish --tag=filament-actions-migrations //publish filament import and export migrations
 php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations" //publish spatie media provider
 php artisan users-roles-permissions:install

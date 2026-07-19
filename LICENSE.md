@@ -1,5 +1,6 @@
 MIT License
 
+Copyright (c) 2026 zielu92
 Copyright (c) 2024 Users Roles Permissions
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
