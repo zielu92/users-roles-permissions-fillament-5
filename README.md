@@ -18,7 +18,7 @@ Filament User & Roles & Permissions for Filament v4.
 Install Using Composer
 
 ```shell
-composer require cwsps154/users-roles-permissions
+composer config repositories.users-roles-permissions '{"type": "vcs", "url": "https://github.com/zielu92/users-roles-permissions-fillament-5"}'
 ```
 ## Usage/Examples
 
