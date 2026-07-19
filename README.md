@@ -1,5 +1,5 @@
 
-This is a fork of [users-roles-permissions](https://github.com/CWSPS154/users-roles-permissions), updated to support version 5.x.
+This is a fork of [users-roles-permissions](https://github.com/CWSPS154/users-roles-permissions), updated to support filamment version 5.x.
 
 # Filament Users Roles Permissions
 
