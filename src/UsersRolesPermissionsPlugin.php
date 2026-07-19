@@ -92,7 +92,7 @@ class UsersRolesPermissionsPlugin implements Plugin
         return $this;
     }
 
-    protected function setAbility(mixed $ability, mixed $arguments = null): array|bool
+    protected function setAbility(mixed $ability, mixed $arguments = null): mixed
     {
         if ($ability instanceof Closure) {
             return $this->evaluate($ability);

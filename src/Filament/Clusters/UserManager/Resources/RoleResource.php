@@ -10,13 +10,18 @@ namespace CWSPS154\UsersRolesPermissions\Filament\Clusters\UserManager\Resources
 
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use CWSPS154\UsersRolesPermissions\Models\Role;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Clusters\Cluster;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Tables;
-use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -26,16 +31,16 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 Forms\Components\TextInput::make('role')
                     ->label(__('users-roles-permissions::users-roles-permissions.role.resource.form.name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('identifier', Str::slug($state))),
+                    ->afterStateUpdated(fn ($state, Set $set) => $set('identifier', Str::slug($state))),
                 Forms\Components\TextInput::make('identifier')
                     ->label(__('users-roles-permissions::users-roles-permissions.role.resource.form.identifier'))
                     ->required()
@@ -47,7 +52,7 @@ class RoleResource extends Resource
                     ->label(__('users-roles-permissions::users-roles-permissions.role.resource.form.all-permission'))
                     ->default(true)
                     ->live()
-                    ->afterStateUpdated(function (Get $get, $state, Forms\Set $set) {
+                    ->afterStateUpdated(function (Get $get, $state, Set $set) {
                         if ($get('all_permission')) {
                             $set('permission_id', []);
                         }
@@ -65,7 +70,7 @@ class RoleResource extends Resource
                         return $query->where('status', true);
                     })
                     ->live()
-                    ->afterStateUpdated(function (Get $get, $state, Forms\Set $set) {
+                    ->afterStateUpdated(function (Get $get, $state, Set $set) {
                         if ($get('all_permission')) {
                             $set('all_permission', false);
                         }
@@ -76,6 +81,7 @@ class RoleResource extends Resource
                     ->direction('down'),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -113,15 +119,15 @@ class RoleResource extends Resource
             ->filters([
                 //
             ])
-            ->actions(
+            ->recordActions(
                 ActionGroup::make([
-                    Tables\Actions\EditAction::make()->slideOver(),
-                    Tables\Actions\DeleteAction::make(),
+                    EditAction::make()->slideOver(),
+                    DeleteAction::make(),
                 ])
             )
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->visible(function () {
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make()->visible(function () {
                         return static::$cluster::checkAccess('getCanDeleteRole');
                     }),
                 ]),

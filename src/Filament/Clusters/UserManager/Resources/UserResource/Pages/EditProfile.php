@@ -13,14 +13,15 @@ namespace CWSPS154\UsersRolesPermissions\Filament\Clusters\UserManager\Resources
 use App\Models\User;
 use CWSPS154\UsersRolesPermissions\Filament\Clusters\UserManager;
 use Exception;
-use Filament\Forms\Components\Section;
+use Filament\Auth\Pages\EditProfile as EditProfileBase;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
+use Filament\Schemas\Components\Section;
 use Illuminate\Support\Facades\Http;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 
-class EditProfile extends \Filament\Pages\Auth\EditProfile
+class EditProfile extends EditProfileBase
 {
     /**
      * @return array<int | string, string | Form>
